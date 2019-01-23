@@ -15,9 +15,9 @@ console.log("*****************New game*****************")
   * destroy() // prototype method -> returns the string: 'Object was removed from the game.'
 */
 
-function GameObject(CreatedAt, dimensions) {
-  this.CreatedAt = CreatedAt;
-  this.dimensions = dimensions;
+function GameObject(stuff) {
+  this.createdAt = stuff.createdAt;
+  this.dimensions = stuff.dimensions;
   // this.name = "frankerz"
 }
 
@@ -37,10 +37,10 @@ GameObject.prototype.destroy = function () {
   * should inherit destroy() from GameObject's prototype
 */
 
-function CharacterStats(CreatedAt,dimensions, healthPoints, name) {
-  GameObject.call(this, CreatedAt, dimensions);    // call parent's constructor, fixing `this` to that of the child instance being created
-  this.healthPoints = healthPoints;
-  this.name = name;
+function CharacterStats(stuff) {
+  GameObject.call(this, stuff);    // call parent's constructor, fixing `this` to that of the child instance being created
+  this.healthPoints = stuff.healthPoints;
+  this.name = stuff.name;
 }
 
 CharacterStats.prototype = Object.create(GameObject.prototype);  //  here we set up the inheritance
@@ -62,11 +62,11 @@ CharacterStats.prototype.takeDamage = function () {
   * should inherit takeDamage() from CharacterStats
 */
  
-function Humanoid(CreatedAt, dimensions, healthPoints, name, team, weapons, language) {
-  CharacterStats.call(this, CreatedAt, dimensions, healthPoints, name);    // call parent's constructor, fixing `this` to that of the child instance being created
-  this.team = team;
-  this.weapons = weapons;
-  this.language = language;
+function Humanoid(stuff) {
+  CharacterStats.call(this, stuff);    // call parent's constructor, fixing `this` to that of the child instance being created
+  this.team = stuff.team;
+  this.weapons = stuff.weapons;
+  this.language = stuff.language;
 }
 
 Humanoid.prototype = Object.create(CharacterStats.prototype);  //  here we set up the inheritance
@@ -75,7 +75,8 @@ Humanoid.prototype.greet = function () {
   return `${this.name} offers a greeting in ${this.language}.`;
 }
 
-const humanoidTest = new Humanoid(new Date(), {length: 1, width: 2, height: 3}, 15, 'Henry', 'Reading FC', ['mace'], 'welsh');
+// Not inputting parameters this way anymore:
+// const humanoidTest = new Humanoid(new Date(), {length: 1, width: 2, height: 3}, 15, 'Henry', 'Reading FC', ['mace'], 'welsh');
 
 
 /*
